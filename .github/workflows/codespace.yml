@@ -14,8 +14,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Setup Codespaces
-        uses: actions/setup-codespaces@v1
+      # - name: Setup Codespaces
+      #   uses: actions/setup-codespaces@v1
 
       - name: Configure Codespaces
         run: |
