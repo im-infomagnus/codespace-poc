@@ -1,0 +1,36 @@
+# .github/workflows/codespaces.yml
+
+name: Setup Codespaces
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  setup-codespaces:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Codespaces
+        uses: actions/setup-codespaces@v1
+
+      - name: Configure Codespaces
+        run: |
+          echo "environment: production" >> .devcontainer/devcontainer.json
+          echo "extensions:" >> .devcontainer/devcontainer.json
+          echo "  recommendations:" >> .devcontainer/devcontainer.json
+          echo "    - octref.vetur" >> .devcontainer/devcontainer.json
+          echo "    - ms-python.python" >> .devcontainer/devcontainer.json
+          echo "    - eamodio.gitlens" >> .devcontainer/devcontainer.json
+          echo "    - esbenp.prettier-vscode" >> .devcontainer/devcontainer.json
+
+      - name: Commit changes
+        run: |
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          git add .
+          git commit -m "Configure Codespaces"
+          git push
